@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>지난 사진 — 이달의 사진</title>
+<meta name="theme-color" content="#f4f2ef">
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ground:#f4f2ef;--ink:#1a1817;--muted:#8b857e;--line:rgba(26,24,23,.14);
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,
+         "Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ground);color:var(--ink);font-family:var(--font);
+  font-size:17px;line-height:1.7;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:4px}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 24px}
+
+.cover{min-height:56svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 30px}
+.cover__kicker{font-size:17px;color:var(--muted)}
+.cover__t{font-size:clamp(42px,10vw,76px);font-weight:200;letter-spacing:-.045em;line-height:1.1;margin-top:10px}
+.cover__rule{width:52px;height:1px;background:var(--line);margin:30px 0 0}
+.cover__sub{margin-top:22px;font-size:17px;color:var(--muted)}
+.cover__back{margin-top:26px;font-size:16px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px}
+.cover__back:hover{color:var(--ink)}
+
+.year{padding-top:70px}
+.year__n{font-size:19px;font-weight:500;letter-spacing:.03em;color:var(--muted);text-align:center}
+.months{display:grid;gap:44px 26px;margin-top:34px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+@media (max-width:640px){.months{grid-template-columns:1fr 1fr;gap:32px 16px}}
+.month{display:block;text-decoration:none;text-align:center}
+.month__img{aspect-ratio:4/5;overflow:hidden;background:#e9e6e2}
+.month__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.month:hover .month__img img{transform:scale(1.04)}
+.month__n{display:block;margin-top:16px;font-size:19px;font-weight:400}
+.month__c{display:block;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+.prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:80;transition:width .1s linear}
+.cat__head{text-align:center;padding:110px 0 0;position:relative}
+.cat__head::before{content:"";position:absolute;top:0;left:calc(50% - 50vw);width:100vw;height:1px;background:var(--line)}
+.cat__name{font-size:clamp(32px,7vw,50px);font-weight:200;letter-spacing:-.04em;line-height:1.1;margin-top:52px}
+.cat__meta{margin-top:16px;font-size:16px;color:var(--muted)}
+.cell,.month{opacity:0;transform:translateY(22px)}
+.cell.in,.month.in{opacity:1;transform:none;
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.grid{margin-top:40px;columns:2;column-gap:18px}
+@media (min-width:760px){.grid{columns:3;column-gap:22px}}
+.cell{display:block;width:100%;padding:0;margin:0 0 34px;break-inside:avoid;text-align:center}
+.cell__img{overflow:hidden;background:#e9e6e2}
+.cell__img img{width:100%;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.cell:hover .cell__img img{transform:scale(1.04)}
+.cell__cap{display:block;margin-top:12px;font-size:17px;line-height:1.5}
+.cell__by{color:var(--muted);font-size:15px}
+.award{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--line);
+  border-radius:999px;padding:1px 9px;margin-left:7px;vertical-align:1px}
+
+.viewer{position:fixed;inset:0;z-index:60;background:#131110;display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.viewer[hidden]{display:none}
+.viewer__top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;color:#f4f2ef}
+.viewer__nav{display:flex;gap:6px}
+.viewer__top button{width:40px;height:40px;border-radius:50%;color:#f4f2ef;font-size:20px;line-height:1;
+  display:flex;align-items:center;justify-content:center}
+.viewer__top button:disabled{opacity:.25;cursor:not-allowed}
+.viewer__stage{flex:1;display:flex;align-items:center;justify-content:center;padding:0 14px;min-height:0}
+.viewer__stage img{max-width:100%;max-height:100%;object-fit:contain;width:auto}
+.viewer__foot{text-align:center;padding:22px 24px 30px;color:#f4f2ef}
+.vtitle{font-size:19px}
+.vby{font-size:15px;color:rgba(244,242,239,.6);margin-top:2px}
+
+.notice{min-height:60svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px}
+.notice h2{font-size:clamp(28px,6vw,40px);font-weight:200;letter-spacing:-.035em}
+.notice p{margin-top:16px;font-size:18px;color:var(--muted)}
+.foot{text-align:center;padding:80px 24px 100px;font-size:16px;color:var(--muted)}
+.foot a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px}
+.foot__club{display:inline-block;margin-top:16px;font-size:15px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.cell,.month{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div id="app"></div>
+<script>
+const CLUB = "서울대학교 사진동아리";
+let DATA=null, flat=[], pos=0;
+
+boot();
+window.addEventListener('hashchange', route);
+
+async function boot(){
+  try{ DATA = await (await fetch('manifest.json?v='+Date.now())).json(); }
+  catch(e){
+    document.getElementById('app').innerHTML =
+      `<div class="notice"><h2>사진을 불러오지 못했습니다</h2><p>manifest.json 파일이 사이트에 올라가 있는지 확인해 주세요.</p></div>`;
+    return;
+  }
+  const open = Date.now() <= new Date(DATA.voting.deadline).getTime();
+  DATA.months = DATA.months.filter(m => !(open && m.id === DATA.voting.month));
+  route();
+}
+
+function route(){
+  const m = DATA.months.find(x => x.id === location.hash.slice(1));
+  m ? renderMonth(m) : renderIndex();
+  window.scrollTo(0,0);
+}
+
+function renderIndex(){
+  if(!DATA.months.length)
+    return shell(`<div class="notice"><h2>아직 지난 사진이 없습니다</h2><p>첫 공모가 끝나면 여기에 쌓입니다.</p></div>`,
+      '지난 사진', '', true);
+
+  const years = [...new Set(DATA.months.map(m=>m.year))].sort((a,b)=>b-a);
+  const body = years.map(y => `<section class="year"><h2 class="year__n">${y}</h2>
+    <div class="months">${DATA.months.filter(m=>m.year===y).sort((a,b)=>b.month-a.month).map(tile).join('')}</div>
+  </section>`).join('');
+
+  const total = DATA.months.reduce((s,m)=>s+m.count,0);
+  shell(body, '지난 사진', `${DATA.months.length}개월 ${total}점`, true);
+}
+
+function tile(m){
+  const all = m.categories.flatMap(c=>c.photos);
+  const cover = all[Math.floor(all.length/2)] || all[0];
+  return `<a class="month" href="#${m.id}">
+    <span class="month__img">${cover?`<img src="${cover.thumb}" alt="" loading="lazy">`:''}</span>
+    <span class="month__n">${m.month}월</span>
+    <span class="month__c">${m.count}점</span></a>`;
+}
+
+function renderMonth(m){
+  flat = m.categories.flatMap(c=>c.photos);
+  const body = m.categories.map(c => `<section>
+    <div class="cat__head"><h2 class="cat__name">${esc(c.label)}</h2>
+      <p class="cat__meta">${c.photos.length}점</p></div>
+    <div class="grid">${c.photos.map(cell).join('')}</div></section>`).join('');
+  shell(body, `${m.year}년 ${m.month}월`, `${m.count}점`, false);
+  document.addEventListener('click', onCell);
+}
+
+function cell(p){
+  return `<button class="cell" data-id="${p.id}">
+    <span class="cell__img"><img src="${p.thumb}" alt="${esc(p.title)}" width="${p.w}" height="${p.h}" loading="lazy" decoding="async"></span>
+    <span class="cell__cap">${esc(p.title)}${p.award?'<span class="award">수상</span>':''}
+      ${p.by?`<br><span class="cell__by">${esc(p.by)}</span>`:''}</span></button>`;
+}
+
+function onCell(e){
+  const c = e.target.closest('.cell'); if(!c) return;
+  pos = flat.findIndex(p=>p.id===c.dataset.id); showViewer();
+}
+
+function showViewer(){
+  const p = flat[pos], v = document.getElementById('viewer');
+  const im = v.querySelector('#vimg'); im.src = p.src; im.alt = p.title;
+  v.querySelector('#vtitle').innerHTML = esc(p.title) + (p.award?'<span class="award">수상</span>':'');
+  v.querySelector('#vby').textContent = p.by || '';
+  v.querySelector('#vprev').disabled = pos===0;
+  v.querySelector('#vnext').disabled = pos===flat.length-1;
+  v.hidden = false; document.body.style.overflow='hidden'; v.querySelector('#vx').focus();
+}
+function step(d){ const n=pos+d; if(n<0||n>=flat.length) return; pos=n; showViewer(); }
+function closeViewer(){ document.getElementById('viewer').hidden=true; document.body.style.overflow=''; }
+
+function shell(body, title, sub, isIndex){
+  document.removeEventListener('click', onCell);
+  document.getElementById('app').innerHTML = `
+    <header class="cover">
+      <p class="cover__kicker">이달의 사진</p>
+      <h1 class="cover__t">${esc(title)}</h1>
+      <div class="cover__rule"></div>
+      ${sub?`<p class="cover__sub">${esc(sub)}</p>`:''}
+      <a class="cover__back" href="${isIndex?'index.html':'#'}">${isIndex?'이번 달 투표하기':'지난 사진 전체'}</a>
+    </header>
+    <main class="wrap">${body}</main>
+    <p class="foot"><a href="${isIndex?'index.html':'#'}">${isIndex?'이번 달 투표하기':'지난 사진 전체'}</a><br><span class="foot__club">${esc(CLUB)}</span></p>
+
+    <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+      <div class="viewer__top">
+        <div class="viewer__nav"><button id="vprev" aria-label="이전">&lsaquo;</button><button id="vnext" aria-label="다음">&rsaquo;</button></div>
+        <button id="vx" aria-label="닫기">&times;</button>
+      </div>
+      <div class="viewer__stage"><img id="vimg" alt=""></div>
+      <div class="viewer__foot"><div class="vtitle" id="vtitle"></div><div class="vby" id="vby"></div></div>
+    </div>`;
+  document.getElementById('vx').onclick = closeViewer;
+  document.getElementById('vprev').onclick = ()=>step(-1);
+  document.getElementById('vnext').onclick = ()=>step(1);
+  reveal();
+}
+
+function reveal(){
+  const els = document.querySelectorAll('.cell, .month');
+  if(!('IntersectionObserver' in window)) return els.forEach(e=>e.classList.add('in'));
+  const io = new IntersectionObserver((es,o)=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); o.unobserve(e.target); }
+  }), {rootMargin:'0px 0px -10% 0px'});
+  els.forEach(e=>io.observe(e));
+}
+
+function onScroll(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('prog').style.width = (h>0 ? (scrollY/h)*100 : 0) + '%';
+}
+addEventListener('scroll', onScroll, {passive:true});
+
+document.addEventListener('keydown', e=>{
+  const v = document.getElementById('viewer'); if(!v || v.hidden) return;
+  if(e.key==='Escape') closeViewer();
+  if(e.key==='ArrowLeft') step(-1);
+  if(e.key==='ArrowRight') step(1);
+});
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+</script>
+</body>
+</html>
