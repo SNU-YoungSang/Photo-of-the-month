@@ -1,0 +1,215 @@
+{
+  "generated": "2026-09-07T00:07:42+09:00",
+  "voting": {
+    "month": "2026-08",
+    "deadline": "2026-09-14T23:59+09:00"
+  },
+  "months": [
+    {
+      "id": "2026-08",
+      "year": 2026,
+      "month": 8,
+      "categories": [
+        {
+          "key": "film",
+          "label": "필름",
+          "photos": [
+            {
+              "id": "film-01",
+              "title": "기억의 파편",
+              "src": "photos/2026-08/film-01.jpg",
+              "thumb": "photos/2026-08/thumbs/film-01.jpg",
+              "w": 2000,
+              "h": 1326,
+              "by": "서가은"
+            },
+            {
+              "id": "film-02",
+              "title": "라이트",
+              "src": "photos/2026-08/film-02.jpg",
+              "thumb": "photos/2026-08/thumbs/film-02.jpg",
+              "w": 2000,
+              "h": 1920,
+              "by": "한주환"
+            },
+            {
+              "id": "film-03",
+              "title": "무제 1",
+              "src": "photos/2026-08/film-03.jpg",
+              "thumb": "photos/2026-08/thumbs/film-03.jpg",
+              "w": 2000,
+              "h": 1970,
+              "by": "윤재욱"
+            },
+            {
+              "id": "film-04",
+              "title": "무제 2",
+              "src": "photos/2026-08/film-04.jpg",
+              "thumb": "photos/2026-08/thumbs/film-04.jpg",
+              "w": 2000,
+              "h": 1970,
+              "by": "윤재욱"
+            },
+            {
+              "id": "film-05",
+              "title": "이색(異色)",
+              "src": "photos/2026-08/film-05.jpg",
+              "thumb": "photos/2026-08/thumbs/film-05.jpg",
+              "w": 1500,
+              "h": 2000,
+              "by": "이경원"
+            },
+            {
+              "id": "film-06",
+              "title": "해안",
+              "src": "photos/2026-08/film-06.jpg",
+              "thumb": "photos/2026-08/thumbs/film-06.jpg",
+              "w": 1333,
+              "h": 2000,
+              "by": "이경원"
+            }
+          ]
+        },
+        {
+          "key": "digital",
+          "label": "디지털",
+          "photos": [
+            {
+              "id": "digital-01",
+              "title": "Velviaish",
+              "src": "photos/2026-08/digital-01.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-01.jpg",
+              "w": 2000,
+              "h": 1333,
+              "by": "윤재욱"
+            },
+            {
+              "id": "digital-02",
+              "title": "귀가 불원",
+              "src": "photos/2026-08/digital-02.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-02.jpg",
+              "w": 2000,
+              "h": 1333,
+              "by": "김도연"
+            },
+            {
+              "id": "digital-03",
+              "title": "리움",
+              "src": "photos/2026-08/digital-03.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-03.jpg",
+              "w": 2000,
+              "h": 1333,
+              "by": "한주환"
+            },
+            {
+              "id": "digital-04",
+              "title": "목조 콘크리트",
+              "src": "photos/2026-08/digital-04.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-04.jpg",
+              "w": 1333,
+              "h": 2000,
+              "by": "김도연"
+            },
+            {
+              "id": "digital-05",
+              "title": "운(명)",
+              "src": "photos/2026-08/digital-05.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-05.jpg",
+              "w": 1333,
+              "h": 2000,
+              "by": "정재원"
+            },
+            {
+              "id": "digital-06",
+              "title": "첫만남",
+              "src": "photos/2026-08/digital-06.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-06.jpg",
+              "w": 2000,
+              "h": 1333,
+              "by": "정재원"
+            },
+            {
+              "id": "digital-07",
+              "title": "청슬백슬",
+              "src": "photos/2026-08/digital-07.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-07.jpg",
+              "w": 1858,
+              "h": 2000,
+              "by": "윤재욱"
+            }
+          ]
+        },
+        {
+          "key": "phone",
+          "label": "폰카",
+          "photos": [
+            {
+              "id": "phone-01",
+              "title": "도시",
+              "src": "photos/2026-08/phone-01.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-01.jpg",
+              "w": 2000,
+              "h": 1500,
+              "by": "이경원"
+            },
+            {
+              "id": "phone-02",
+              "title": "디딤돌",
+              "src": "photos/2026-08/phone-02.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-02.jpg",
+              "w": 1500,
+              "h": 2000,
+              "by": "이세영"
+            },
+            {
+              "id": "phone-03",
+              "title": "물너울",
+              "src": "photos/2026-08/phone-03.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-03.jpg",
+              "w": 1500,
+              "h": 2000,
+              "by": "이세영"
+            },
+            {
+              "id": "phone-04",
+              "title": "사진같은 풍경",
+              "src": "photos/2026-08/phone-04.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-04.jpg",
+              "w": 2000,
+              "h": 1500,
+              "by": "정재원"
+            },
+            {
+              "id": "phone-05",
+              "title": "산보",
+              "src": "photos/2026-08/phone-05.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-05.jpg",
+              "w": 2000,
+              "h": 1500,
+              "by": "정재원"
+            },
+            {
+              "id": "phone-06",
+              "title": "솜사탕",
+              "src": "photos/2026-08/phone-06.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-06.jpg",
+              "w": 1500,
+              "h": 2000,
+              "by": "한주환"
+            },
+            {
+              "id": "phone-07",
+              "title": "용",
+              "src": "photos/2026-08/phone-07.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-07.jpg",
+              "w": 2000,
+              "h": 1556,
+              "by": "이경원"
+            }
+          ]
+        }
+      ],
+      "count": 20
+    }
+  ]
+}

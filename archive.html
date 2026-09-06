@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>지난 사진 — 이달의 사진</title>
+<meta name="theme-color" content="#34312e">
+<link rel="stylesheet" as="style" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+<style>
+:root{
+  --wall:#34312e;
+  --wall-up:#3d3936;
+  --mat:#454039;
+  --ink:#f2ede6;
+  --ink-dim:#a8a099;
+  --line:rgba(242,237,230,.16);
+  --pad:20px;
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,
+         "Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--wall);color:var(--ink);font-family:var(--font);
+  font-size:17px;line-height:1.62;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;padding-bottom:80px;
+}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+.wrap{width:100%;max-width:980px;margin:0 auto;padding:0 var(--pad)}
+
+.masthead{padding:38px 0 26px}
+.masthead__row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.masthead h1{font-size:19px;font-weight:500;letter-spacing:.02em;color:var(--ink-dim)}
+.masthead__link{font-size:16px;color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.masthead__link:hover{color:var(--ink)}
+.title{font-size:42px;font-weight:600;letter-spacing:-.03em;line-height:1.15;margin-top:6px}
+.sub{margin-top:12px;font-size:17px;color:var(--ink-dim)}
+
+/* ── 연도와 달 ────────────────────────────── */
+.year{margin-top:44px}
+.year__num{font-size:26px;font-weight:600;letter-spacing:-.02em;
+  padding-bottom:12px;border-bottom:1px solid var(--line)}
+.months{display:grid;gap:26px 22px;margin-top:26px;
+  grid-template-columns:repeat(auto-fill,minmax(215px,1fr))}
+.month{display:block;width:100%;text-align:left;padding:0;text-decoration:none}
+.month__strip{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
+  background:var(--mat);padding:7px;border:1px solid var(--line);
+  transition:background .18s ease,border-color .18s ease}
+.month:hover .month__strip,.month:focus-visible .month__strip{background:var(--ink);border-color:var(--ink)}
+.month__strip span{display:block;aspect-ratio:1;background:var(--wall-up);overflow:hidden}
+.month__strip img{width:100%;height:100%;object-fit:cover}
+.month__name{display:block;margin-top:12px;font-size:20px;font-weight:600;letter-spacing:-.015em}
+.month__count{display:block;font-size:16px;color:var(--ink-dim);font-variant-numeric:tabular-nums}
+
+/* ── 한 달 보기 ───────────────────────────── */
+.back{font-size:16px;color:var(--ink-dim);border-bottom:1px solid var(--line);padding-bottom:2px}
+.back:hover{color:var(--ink)}
+.cat{margin-top:40px}
+.cat__name{font-size:21px;font-weight:600;letter-spacing:-.01em;
+  padding-bottom:12px;border-bottom:1px solid var(--line)}
+.grid{margin-top:18px;columns:2;column-gap:14px}
+@media (min-width:700px){.grid{columns:3;column-gap:16px}}
+.cell{display:block;width:100%;padding:0;margin:0 0 14px;break-inside:avoid;text-align:left}
+.cell__mat{display:block;background:var(--mat);padding:6px;border:1px solid var(--line);
+  transition:background .18s ease,border-color .18s ease}
+.cell:hover .cell__mat,.cell:focus-visible .cell__mat{background:var(--ink);border-color:var(--ink)}
+.cell__cap{display:block;margin-top:8px;font-size:16px;line-height:1.45}
+.cell__by{color:var(--ink-dim)}
+.award{color:var(--ink);border:1px solid var(--line);font-size:14px;padding:1px 7px;margin-left:6px;white-space:nowrap}
+
+/* ── 크게 보기 ────────────────────────────── */
+.viewer{position:fixed;inset:0;z-index:60;background:#262320;
+  display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.viewer[hidden]{display:none}
+.viewer__top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}
+.viewer__nav{display:flex;gap:8px}
+.viewer__top button{font-size:16px;padding:8px 14px;border:1px solid var(--line)}
+.viewer__top button:disabled{opacity:.3;cursor:not-allowed}
+.viewer__stage{flex:1;display:flex;align-items:center;justify-content:center;padding:0 12px;min-height:0}
+.viewer__stage img{max-width:100%;max-height:100%;object-fit:contain;width:auto}
+.viewer__foot{padding:18px 20px 24px}
+.viewer__title{font-size:20px;font-weight:500}
+.viewer__by{font-size:16px;color:var(--ink-dim);margin-top:2px}
+
+.notice{padding:80px 0}
+.notice h2{font-size:30px;font-weight:600;letter-spacing:-.025em}
+.notice p{margin-top:12px;font-size:18px;color:var(--ink-dim)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+let DATA = null, current = null, flat = [], pos = 0;
+
+boot();
+window.addEventListener('hashchange', route);
+
+async function boot(){
+  try{
+    const res = await fetch('manifest.json?v=' + Date.now());
+    DATA = await res.json();
+  }catch(err){
+    document.getElementById('app').innerHTML =
+      `<div class="notice"><div class="wrap"><h2>사진을 불러오지 못했습니다</h2>
+       <p>manifest.json 파일이 사이트에 올라가 있는지 확인해 주세요.</p></div></div>`;
+    return;
+  }
+
+  // 투표가 진행 중인 달은 아직 아카이브에 보이지 않게 한다 (순서 편향 방지)
+  const open = Date.now() <= new Date(DATA.voting.deadline).getTime();
+  DATA.months = DATA.months.filter(m => !(open && m.id === DATA.voting.month));
+
+  route();
+}
+
+function route(){
+  const id = location.hash.slice(1);
+  const m = DATA.months.find(x => x.id === id);
+  m ? renderMonth(m) : renderIndex();
+  window.scrollTo(0, 0);
+}
+
+/* ── 목록 ────────────────────────────────── */
+
+function renderIndex(){
+  if(!DATA.months.length){
+    return shell(`<div class="notice"><h2>아직 지난 사진이 없습니다</h2>
+      <p>첫 공모가 끝나면 여기에 쌓입니다.</p></div>`, true);
+  }
+
+  const years = [...new Set(DATA.months.map(m => m.year))].sort((a, b) => b - a);
+  const body = years.map(y => `
+    <section class="year">
+      <h2 class="year__num">${y}</h2>
+      <div class="months">
+        ${DATA.months.filter(m => m.year === y).sort((a,b)=>b.month-a.month).map(monthTile).join('')}
+      </div>
+    </section>`).join('');
+
+  shell(body, true);
+}
+
+function monthTile(m){
+  const all = m.categories.flatMap(c => c.photos);
+  const picks = [0, Math.floor(all.length / 2), all.length - 1]
+    .map(i => all[i]).filter(Boolean).slice(0, 3);
+  while(picks.length < 3) picks.push(null);
+
+  return `<a class="month" href="#${m.id}">
+    <span class="month__strip">
+      ${picks.map(p => `<span>${p ? `<img src="${p.thumb}" alt="" loading="lazy">` : ''}</span>`).join('')}
+    </span>
+    <span class="month__name">${m.month}월</span>
+    <span class="month__count">${m.count}점</span>
+  </a>`;
+}
+
+/* ── 한 달 ───────────────────────────────── */
+
+function renderMonth(m){
+  current = m;
+  flat = m.categories.flatMap(c => c.photos);
+
+  const body = m.categories.map(c => `
+    <section class="cat">
+      <h2 class="cat__name">${esc(c.label)}</h2>
+      <div class="grid">${c.photos.map(cell).join('')}</div>
+    </section>`).join('');
+
+  shell(body, false, `${m.year}년 ${m.month}월`, `${m.count}점`);
+  document.addEventListener('click', onCellClick);
+}
+
+function cell(p){
+  return `<button class="cell" data-id="${p.id}">
+    <span class="cell__mat"><img src="${p.thumb}" alt="${esc(p.title)}"
+      width="${p.w}" height="${p.h}" loading="lazy" decoding="async"></span>
+    <span class="cell__cap">${esc(p.title)}${p.award ? '<span class="award">수상</span>' : ''}
+      ${p.by ? `<br><span class="cell__by">${esc(p.by)}</span>` : ''}</span>
+  </button>`;
+}
+
+function onCellClick(e){
+  const c = e.target.closest('.cell');
+  if(!c) return;
+  pos = flat.findIndex(p => p.id === c.dataset.id);
+  showViewer();
+}
+
+/* ── 크게 보기 ───────────────────────────── */
+
+function showViewer(){
+  const p = flat[pos];
+  const v = document.getElementById('viewer');
+  v.querySelector('#v-img').src = p.src;
+  v.querySelector('#v-img').alt = p.title;
+  v.querySelector('#v-title').innerHTML = esc(p.title) + (p.award ? '<span class="award">수상</span>' : '');
+  v.querySelector('#v-by').textContent = p.by || '';
+  v.querySelector('#v-prev').disabled = pos === 0;
+  v.querySelector('#v-next').disabled = pos === flat.length - 1;
+  v.hidden = false;
+  document.body.style.overflow = 'hidden';
+  v.querySelector('#v-close').focus();
+}
+
+function step(d){
+  const n = pos + d;
+  if(n < 0 || n >= flat.length) return;
+  pos = n;
+  showViewer();
+}
+
+function closeViewer(){
+  document.getElementById('viewer').hidden = true;
+  document.body.style.overflow = '';
+}
+
+/* ── 틀 ──────────────────────────────────── */
+
+function shell(body, isIndex, title, sub){
+  document.removeEventListener('click', onCellClick);
+  document.getElementById('app').innerHTML = `
+    <header class="masthead"><div class="wrap">
+      <div class="masthead__row">
+        <h1>이달의 사진</h1>
+        ${isIndex
+          ? '<a class="masthead__link" href="index.html">이번 달 투표하기</a>'
+          : '<a class="masthead__link back" href="#">지난 사진 전체</a>'}
+      </div>
+      <p class="title">${title || '지난 사진'}</p>
+      ${sub ? `<p class="sub">${esc(sub)}</p>` : ''}
+    </div></header>
+    <main class="wrap">${body}</main>
+
+    <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+      <div class="viewer__top">
+        <div class="viewer__nav">
+          <button id="v-prev">이전</button><button id="v-next">다음</button>
+        </div>
+        <button id="v-close">닫기</button>
+      </div>
+      <div class="viewer__stage"><img id="v-img" alt=""></div>
+      <div class="viewer__foot">
+        <div class="viewer__title" id="v-title"></div>
+        <div class="viewer__by" id="v-by"></div>
+      </div>
+    </div>`;
+
+  document.getElementById('v-close').onclick = closeViewer;
+  document.getElementById('v-prev').onclick = () => step(-1);
+  document.getElementById('v-next').onclick = () => step(1);
+}
+
+document.addEventListener('keydown', e => {
+  const v = document.getElementById('viewer');
+  if(!v || v.hidden) return;
+  if(e.key === 'Escape') closeViewer();
+  if(e.key === 'ArrowLeft') step(-1);
+  if(e.key === 'ArrowRight') step(1);
+});
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+</script>
+</body>
+</html>
