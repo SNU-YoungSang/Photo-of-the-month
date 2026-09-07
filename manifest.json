@@ -1,0 +1,371 @@
+{
+  "generated": "2026-09-07T22:43:07+09:00",
+  "voting": {
+    "month": "2026-08",
+    "deadline": "2026-09-14T23:59+09:00"
+  },
+  "months": [
+    {
+      "id": "2026-08",
+      "year": 2026,
+      "month": 8,
+      "categories": [
+        {
+          "key": "film",
+          "label": "필름",
+          "photos": [
+            {
+              "id": "film-d299f4",
+              "title": "Own Summer",
+              "src": "photos/2026-08/film-d299f4.jpg",
+              "thumb": "photos/2026-08/thumbs/film-d299f4.jpg",
+              "w": 1471,
+              "h": 2200
+            },
+            {
+              "id": "film-3df706",
+              "title": "가끔은 창밖을 보자",
+              "src": "photos/2026-08/film-3df706.jpg",
+              "thumb": "photos/2026-08/thumbs/film-3df706.jpg",
+              "w": 1459,
+              "h": 2200
+            },
+            {
+              "id": "film-3bd430",
+              "title": "기억의 파편",
+              "src": "photos/2026-08/film-3bd430.jpg",
+              "thumb": "photos/2026-08/thumbs/film-3bd430.jpg",
+              "w": 2200,
+              "h": 1459
+            },
+            {
+              "id": "film-c29114",
+              "title": "라이트",
+              "src": "photos/2026-08/film-c29114.jpg",
+              "thumb": "photos/2026-08/thumbs/film-c29114.jpg",
+              "w": 2200,
+              "h": 2112
+            },
+            {
+              "id": "film-456cdb",
+              "title": "무제",
+              "src": "photos/2026-08/film-456cdb.jpg",
+              "thumb": "photos/2026-08/thumbs/film-456cdb.jpg",
+              "w": 2200,
+              "h": 2167
+            },
+            {
+              "id": "film-4d11e3",
+              "title": "무제",
+              "src": "photos/2026-08/film-4d11e3.jpg",
+              "thumb": "photos/2026-08/thumbs/film-4d11e3.jpg",
+              "w": 2200,
+              "h": 2167
+            },
+            {
+              "id": "film-8dc181",
+              "title": "번지지 않는",
+              "src": "photos/2026-08/film-8dc181.jpg",
+              "thumb": "photos/2026-08/thumbs/film-8dc181.jpg",
+              "w": 2200,
+              "h": 1459
+            },
+            {
+              "id": "film-74ed07",
+              "title": "아른거리는",
+              "src": "photos/2026-08/film-74ed07.jpg",
+              "thumb": "photos/2026-08/thumbs/film-74ed07.jpg",
+              "w": 2178,
+              "h": 1444
+            },
+            {
+              "id": "film-f90070",
+              "title": "이색(異色)",
+              "src": "photos/2026-08/film-f90070.jpg",
+              "thumb": "photos/2026-08/thumbs/film-f90070.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "film-7c4e84",
+              "title": "침전물",
+              "src": "photos/2026-08/film-7c4e84.jpg",
+              "thumb": "photos/2026-08/thumbs/film-7c4e84.jpg",
+              "w": 2200,
+              "h": 1459
+            },
+            {
+              "id": "film-72c400",
+              "title": "해안",
+              "src": "photos/2026-08/film-72c400.jpg",
+              "thumb": "photos/2026-08/thumbs/film-72c400.jpg",
+              "w": 1466,
+              "h": 2200
+            }
+          ]
+        },
+        {
+          "key": "digital",
+          "label": "디지털",
+          "photos": [
+            {
+              "id": "digital-f39bda",
+              "title": "Velviaish",
+              "src": "photos/2026-08/digital-f39bda.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-f39bda.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-62d5fb",
+              "title": "귀가 불원",
+              "src": "photos/2026-08/digital-62d5fb.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-62d5fb.jpg",
+              "w": 2200,
+              "h": 1466
+            },
+            {
+              "id": "digital-14187c",
+              "title": "다시 날기 전에",
+              "src": "photos/2026-08/digital-14187c.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-14187c.jpg",
+              "w": 1760,
+              "h": 2200
+            },
+            {
+              "id": "digital-87cb8c",
+              "title": "담지 못한 마음",
+              "src": "photos/2026-08/digital-87cb8c.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-87cb8c.jpg",
+              "w": 1467,
+              "h": 2200
+            },
+            {
+              "id": "digital-cad238",
+              "title": "땅 위의 별",
+              "src": "photos/2026-08/digital-cad238.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-cad238.jpg",
+              "w": 1462,
+              "h": 2200
+            },
+            {
+              "id": "digital-684959",
+              "title": "리움",
+              "src": "photos/2026-08/digital-684959.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-684959.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-954fe0",
+              "title": "목조 콘크리트",
+              "src": "photos/2026-08/digital-954fe0.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-954fe0.jpg",
+              "w": 1467,
+              "h": 2200
+            },
+            {
+              "id": "digital-1f0aab",
+              "title": "미래현재과거",
+              "src": "photos/2026-08/digital-1f0aab.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-1f0aab.jpg",
+              "w": 1467,
+              "h": 2200
+            },
+            {
+              "id": "digital-78a36b",
+              "title": "수련",
+              "src": "photos/2026-08/digital-78a36b.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-78a36b.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-c14ea7",
+              "title": "여름사찰의 풍경",
+              "src": "photos/2026-08/digital-c14ea7.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-c14ea7.jpg",
+              "w": 1467,
+              "h": 2200
+            },
+            {
+              "id": "digital-14625b",
+              "title": "운(명)",
+              "src": "photos/2026-08/digital-14625b.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-14625b.jpg",
+              "w": 1467,
+              "h": 2200
+            },
+            {
+              "id": "digital-1640ec",
+              "title": "자하 (紫霞)",
+              "src": "photos/2026-08/digital-1640ec.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-1640ec.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-5b96bf",
+              "title": "주말에는 한숨의 여유를",
+              "src": "photos/2026-08/digital-5b96bf.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-5b96bf.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-f1d9e3",
+              "title": "찬란, 한때 - Reflection",
+              "src": "photos/2026-08/digital-f1d9e3.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-f1d9e3.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-ad5114",
+              "title": "첫만남",
+              "src": "photos/2026-08/digital-ad5114.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-ad5114.jpg",
+              "w": 2200,
+              "h": 1467
+            },
+            {
+              "id": "digital-c507cc",
+              "title": "청슬백슬",
+              "src": "photos/2026-08/digital-c507cc.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-c507cc.jpg",
+              "w": 2043,
+              "h": 2200
+            },
+            {
+              "id": "digital-c780a5",
+              "title": "피르스트 정상에서",
+              "src": "photos/2026-08/digital-c780a5.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-c780a5.jpg",
+              "w": 2200,
+              "h": 1650
+            },
+            {
+              "id": "digital-37d785",
+              "title": "헤엄",
+              "src": "photos/2026-08/digital-37d785.jpg",
+              "thumb": "photos/2026-08/thumbs/digital-37d785.jpg",
+              "w": 2200,
+              "h": 1556
+            }
+          ]
+        },
+        {
+          "key": "phone",
+          "label": "폰카",
+          "photos": [
+            {
+              "id": "phone-6680fa",
+              "title": "Fairytale",
+              "src": "photos/2026-08/phone-6680fa.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-6680fa.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "phone-db1ff7",
+              "title": "도시",
+              "src": "photos/2026-08/phone-db1ff7.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-db1ff7.jpg",
+              "w": 2200,
+              "h": 1650
+            },
+            {
+              "id": "phone-0f7201",
+              "title": "디딤돌",
+              "src": "photos/2026-08/phone-0f7201.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-0f7201.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "phone-dab146",
+              "title": "모래놀이",
+              "src": "photos/2026-08/phone-dab146.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-dab146.jpg",
+              "w": 1605,
+              "h": 2200
+            },
+            {
+              "id": "phone-24e7cd",
+              "title": "물너울",
+              "src": "photos/2026-08/phone-24e7cd.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-24e7cd.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "phone-ee48c7",
+              "title": "뭉게",
+              "src": "photos/2026-08/phone-ee48c7.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-ee48c7.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "phone-cd2285",
+              "title": "베르사유 정원에서",
+              "src": "photos/2026-08/phone-cd2285.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-cd2285.jpg",
+              "w": 1237,
+              "h": 2200
+            },
+            {
+              "id": "phone-e67508",
+              "title": "사진같은 풍경",
+              "src": "photos/2026-08/phone-e67508.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-e67508.jpg",
+              "w": 2200,
+              "h": 1650
+            },
+            {
+              "id": "phone-d723ab",
+              "title": "산보",
+              "src": "photos/2026-08/phone-d723ab.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-d723ab.jpg",
+              "w": 2200,
+              "h": 1650
+            },
+            {
+              "id": "phone-064fab",
+              "title": "솜사탕",
+              "src": "photos/2026-08/phone-064fab.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-064fab.jpg",
+              "w": 1650,
+              "h": 2200
+            },
+            {
+              "id": "phone-56d21e",
+              "title": "용",
+              "src": "photos/2026-08/phone-56d21e.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-56d21e.jpg",
+              "w": 2200,
+              "h": 1712
+            },
+            {
+              "id": "phone-28187c",
+              "title": "저 너머",
+              "src": "photos/2026-08/phone-28187c.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-28187c.jpg",
+              "w": 1238,
+              "h": 2200
+            },
+            {
+              "id": "phone-5bac0f",
+              "title": "정지하시오",
+              "src": "photos/2026-08/phone-5bac0f.jpg",
+              "thumb": "photos/2026-08/thumbs/phone-5bac0f.jpg",
+              "w": 1650,
+              "h": 2200
+            }
+          ]
+        }
+      ],
+      "count": 42
+    }
+  ]
+}
