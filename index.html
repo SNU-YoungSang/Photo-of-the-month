@@ -184,10 +184,10 @@ a{color:inherit}
 <script>
 /* ═══ 설정 — 이 두 줄만 채우면 됩니다 ═══ */
 const CONFIG = {
-  ENDPOINT: "여기에_웹앱_URL_붙여넣기",
-  SECRET:   "여기를_아무_문자열로_바꾸세요"
+  ENDPOINT: "https://script.google.com/macros/s/AKfycbwOc6QPe_YuLJZE6H0LArmLpoTjtvB7rBnWc8Of1EkNcnp7wG7UFRD65PEyBLFMHjCc/exec",
+  SECRET:   "wjdgmlfhr"
 };
-const CLUB = "서울대학교 사진동아리";
+const CLUB = "서울대학교 중앙사진동아리 영상";
 const MAX_PER_CATEGORY = 2;
 /* 어두운 배경으로 바꾸려면 위 :root 에서
    --ground:#211f1d;  --ink:#f2efea;  --muted:#8f8880;
@@ -213,7 +213,7 @@ async function boot(){
 
   const dl = new Date(data.voting.deadline);
   if(Date.now() > dl.getTime())
-    return notice('이번 달 투표가 마감되었습니다', '결과는 집행부 확인 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
+    return notice('이번 달 투표가 마감되었습니다', '결과는 투표 종료 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
   cats = month.categories;
   cats.forEach(c => { picked.set(c.key, new Set()); c.photos.forEach(p => index.set(p.id, p)); });
   render(dl);
@@ -265,7 +265,7 @@ function render(dl){
         <div class="field">
           <label for="voter">이름</label>
           <input id="voter" type="text" autocomplete="name" maxlength="40" placeholder="이름을 적어 주세요">
-          <p class="hint">경품 추첨에 씁니다. 누가 무엇에 투표했는지는 공개하지 않습니다.</p>
+          <p class="hint">투표자 중 추첨에 사용됩니다.</p>
         </div>
         <p class="err" id="err" hidden></p>
         <div class="acts">
@@ -442,8 +442,8 @@ async function send(){
 
   if(out.ok){
     document.body.style.overflow = '';
-    return notice('투표를 제출했습니다',
-      '결과는 집행부 확인 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
+    return notice('투표해주셔서 감사합니다',
+      '결과는 투표 종료 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
   }
   const m = MSG[out.code] || MSG.SERVER;
   er.innerHTML = `<b>${esc(m[0])}</b><small>${esc(m[1])}</small><small>오류 코드 ${esc(out.code)}</small>`;
