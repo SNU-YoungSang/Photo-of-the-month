@@ -66,6 +66,25 @@ a{color:inherit}
 .cat__count b{font-weight:700;color:var(--ink);margin-right:1px}
 .cat__count.is-full,.cat__count.is-full b{background:transparent;color:var(--ground)}
 .cat__count.is-full{background:var(--ink);border-color:var(--ink)}
+.cat__actions{display:flex;justify-content:center;align-items:center;gap:9px;margin-top:16px}
+.cat__count{margin-top:0}
+.viewtoggle{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:5px 16px;
+  transition:color .2s var(--ease),border-color .2s var(--ease)}
+.viewtoggle:hover{color:var(--ink);border-color:var(--ink)}
+
+/* 모아 보기 — 한 줄에 여러 장 */
+body.compact{--ring:3px}
+body.compact .feed{display:block;columns:2;column-gap:14px;margin:56px 0 0;padding-bottom:10px}
+@media (min-width:760px){body.compact .feed{columns:3;column-gap:18px}}
+body.compact .photo{display:block;break-inside:avoid;margin:0 0 14px}
+body.compact .frame{max-width:none!important}
+body.compact .badge{width:24px;height:24px;top:calc(var(--ring) + 7px);right:calc(var(--ring) + 7px)}
+body.compact .badge svg{width:12px;height:12px}
+body.compact .zoom{bottom:calc(var(--ring) + 7px);right:calc(var(--ring) + 7px);padding:8px;gap:0}
+body.compact .zoom__t{display:none}
+body.compact .caption{padding:11px 4px 0}
+body.compact .caption h3{font-size:15px;font-weight:500;letter-spacing:-.02em}
 
 /* 사진 */
 .feed{display:flex;flex-direction:column;gap:90px;margin-top:70px;padding-bottom:20px}
@@ -213,7 +232,7 @@ async function boot(){
 
   const dl = new Date(data.voting.deadline);
   if(Date.now() > dl.getTime())
-    return notice('이번 달 투표가 마감되었습니다', '결과는 투표 종료 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
+    return notice('이번 달 투표가 마감되었습니다', '결과는 집행부 확인 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
   cats = month.categories;
   cats.forEach(c => { picked.set(c.key, new Set()); c.photos.forEach(p => index.set(p.id, p)); });
   render(dl);
@@ -236,7 +255,10 @@ function render(dl){
         <div class="cat__head">
           <h2 class="cat__name">${esc(c.label)}</h2>
           <p class="cat__meta">${c.photos.length}점 가운데 두 장까지</p>
-          <span class="cat__count" id="cnt-${c.key}"><b>0</b> / ${MAX_PER_CATEGORY}</span>
+          <div class="cat__actions">
+            <span class="cat__count" id="cnt-${c.key}"><b>0</b> / ${MAX_PER_CATEGORY}</span>
+            <button class="viewtoggle">모아 보기</button>
+          </div>
         </div>
         <div class="wrap"><div class="feed" id="feed-${c.key}"></div></div>
       </section>`).join('')}
@@ -265,7 +287,7 @@ function render(dl){
         <div class="field">
           <label for="voter">이름</label>
           <input id="voter" type="text" autocomplete="name" maxlength="40" placeholder="이름을 적어 주세요">
-          <p class="hint">투표자 중 추첨에 사용됩니다.</p>
+          <p class="hint">경품 추첨에 씁니다. 누가 무엇에 투표했는지는 공개하지 않습니다.</p>
         </div>
         <p class="err" id="err" hidden></p>
         <div class="acts">
@@ -284,6 +306,7 @@ function render(dl){
   requestAnimationFrame(() => document.getElementById('cover').classList.add('up'));
   observe();
   onScroll();
+  try{ if(localStorage.getItem('mps-view') === 'compact') setView(true); }catch(e){}
 }
 
 function card(p, cat, i){
@@ -294,7 +317,7 @@ function card(p, cat, i){
       <button class="hit" data-pick="${p.id}" aria-pressed="false" aria-label="${esc(p.title)} 고르기"></button>
       <span class="badge"><svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
       <button class="zoom" data-view="${p.id}" aria-label="${esc(p.title)} 자세히 보기">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21M11 8v6M8 11h6"/></svg>자세히</button>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21M11 8v6M8 11h6"/></svg><span class="zoom__t">자세히</span></button>
     </div>
     <div class="caption"><h3>${esc(p.title)}</h3></div>
   </article>`;
@@ -302,6 +325,7 @@ function card(p, cat, i){
 
 function wire(){
   document.addEventListener('click', e => {
+    if(e.target.closest('.viewtoggle')) return setView(!document.body.classList.contains('compact'));
     const vw = e.target.closest('[data-view]'); if(vw){ e.stopPropagation(); return openViewer(vw.dataset.view); }
     const pk = e.target.closest('[data-pick]'); if(pk) return toggle(pk.dataset.pick);
   });
@@ -315,6 +339,18 @@ function wire(){
     else document.getElementById('sheet').hidden = true;
   });
   window.addEventListener('scroll', onScroll, {passive:true});
+}
+
+/* 큰 보기 ↔ 모아 보기 */
+function setView(compact){
+  document.body.classList.toggle('compact', compact);
+  document.querySelectorAll('.viewtoggle').forEach(b => b.textContent = compact ? '크게 보기' : '모아 보기');
+  try{ localStorage.setItem('mps-view', compact ? 'compact' : 'large'); }catch(e){}
+  // 배치가 바뀌면서 화면에 새로 들어온 사진을 바로 보이게 한다
+  document.querySelectorAll('.photo:not(.in)').forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+  });
+  onScroll();
 }
 
 function observe(){
@@ -442,8 +478,8 @@ async function send(){
 
   if(out.ok){
     document.body.style.overflow = '';
-    return notice('투표해주셔서 감사합니다',
-      '결과는 투표 종료 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
+    return notice('투표를 제출했습니다',
+      '결과는 집행부 확인 후 발표됩니다. <a href="archive.html">지난 사진 보기</a>');
   }
   const m = MSG[out.code] || MSG.SERVER;
   er.innerHTML = `<b>${esc(m[0])}</b><small>${esc(m[1])}</small><small>오류 코드 ${esc(out.code)}</small>`;
