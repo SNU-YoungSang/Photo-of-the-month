@@ -69,7 +69,7 @@ a{color:inherit}
   transition:background .2s var(--e,cubic-bezier(.22,.61,.36,1)),color .2s ease,opacity .2s ease}
 .crown svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .crown:hover{background:#fff}
-.crown.is-won{background:var(--ink);color:var(--ground);cursor:default}
+.crown.is-won{background:#d9a12a;color:#fff;cursor:default}
 .crown.is-won svg{fill:currentColor;stroke-width:1.2}
 .crown[hidden]{display:none}
 .award{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);
@@ -120,9 +120,9 @@ a{color:inherit}
 <div id="app"></div>
 <script>
 /* ═══ 설정 — index.html 의 ENDPOINT 와 같은 주소를 넣으세요 ═══ */
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbwOc6QPe_YuLJZE6H0LArmLpoTjtvB7rBnWc8Of1EkNcnp7wG7UFRD65PEyBLFMHjCc/exec";
+const ENDPOINT = "여기에_웹앱_URL_붙여넣기";
 
-const CLUB = "서울대학교 중앙사진동아리 영상";
+const CLUB = "서울대학교 사진동아리";
 let DATA=null, flat=[], pos=0, awards=[], current=null, pending=null;
 
 boot();
@@ -248,9 +248,10 @@ async function saveAward(){
     paintCrowns();
     document.getElementById('pw').hidden = true;
   }catch(err){
-    er.textContent = String(err.message) === 'badpw'
+    const code = String(err.message || '');
+    er.textContent = code === 'badpw'
       ? '비밀번호가 맞지 않습니다.'
-      : '저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요.';
+      : `저장하지 못했습니다. (${code || '연결 실패'}) Apps Script 를 새 버전으로 배포했는지 확인해 주세요.`;
     er.hidden = false;
   }
   ok.disabled = false; ok.textContent = '지정';
