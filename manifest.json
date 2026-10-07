@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07T22:04:41+09:00",
+  "generated": "2026-10-07T22:12:47+09:00",
   "voting": {
     "month": "2026-09",
     "deadline": "2026-10-14T23:59+09:00"
@@ -107,6 +107,14 @@
               "thumb": "photos/2026-09/thumbs/digital-aaaeef.jpg",
               "w": 1776,
               "h": 1184
+            },
+            {
+              "id": "digital-0c53aa",
+              "title": "결",
+              "src": "photos/2026-09/digital-0c53aa.jpg",
+              "thumb": "photos/2026-09/thumbs/digital-0c53aa.jpg",
+              "w": 2200,
+              "h": 1467
             },
             {
               "id": "digital-85cbb4",
@@ -317,7 +325,7 @@
           ]
         }
       ],
-      "count": 36
+      "count": 37
     },
     {
       "id": "2026-08",
