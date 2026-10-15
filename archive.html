@@ -69,12 +69,11 @@ a{color:inherit}
   transition:background .2s var(--e,cubic-bezier(.22,.61,.36,1)),color .2s ease,opacity .2s ease}
 .crown svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .crown:hover{background:#fff}
-.crown.is-won{background:#d9a12a;color:#fff;cursor:default}
-.crown.is-won svg{fill:currentColor;stroke-width:1.2}
 .crown[hidden]{display:none}
 .award{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);
   border-radius:999px;padding:1px 9px;margin-left:7px;vertical-align:1px}
 .award[hidden]{display:none}
+.cellwrap.is-award .cell__img{outline:3px solid #d9a12a;outline-offset:3px;border-radius:2px}
 
 .viewer{position:fixed;inset:0;z-index:60;background:#131110;display:flex;flex-direction:column;
   padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
@@ -120,9 +119,9 @@ a{color:inherit}
 <div id="app"></div>
 <script>
 /* ═══ 설정 — index.html 의 ENDPOINT 와 같은 주소를 넣으세요 ═══ */
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbwOc6QPe_YuLJZE6H0LArmLpoTjtvB7rBnWc8Of1EkNcnp7wG7UFRD65PEyBLFMHjCc/exec";
+const ENDPOINT = "여기에_웹앱_URL_붙여넣기";
 
-const CLUB = "서울대학교 중앙사진동아리 영상";
+const CLUB = "서울대학교 사진동아리";
 let DATA=null, flat=[], pos=0, awards=[], current=null, pending=null;
 
 boot();
@@ -181,12 +180,18 @@ function renderMonth(m){
   document.addEventListener('click', onCell);
   document.addEventListener('click', onCrown);
   paintCrowns();
-  loadAwards();
+  // 하루 넘게 지난 수상작은 manifest.json 에 이미 고정되어 있으므로,
+  // 모든 부문이 고정된 달은 느린 시트 호출을 건너뛴다
+  if(!allBaked(m)) loadAwards();
 }
 
 /* ── 수상작 ─────────────────────────────── */
 
 const configured = () => /^https:\/\/script\.google\.com\/macros\/.+\/exec$/.test(ENDPOINT);
+
+function allBaked(m){
+  return m.categories.every(c => c.photos.length === 0 || c.photos.some(p => p.award));
+}
 
 async function loadAwards(){
   if(!configured()) return;
@@ -210,14 +215,14 @@ function paintCrowns(){
     cat.photos.forEach(p => {
       const cr = document.getElementById('cr-' + p.id);
       const aw = document.getElementById('aw-' + p.id);
+      const cw = document.getElementById('cw-' + p.id);
       if(!cr) return;
       const isWin = p.id === win;
       if(aw) aw.hidden = !isWin;
-      cr.classList.toggle('is-won', isWin);
-      cr.disabled = isWin;
-      // 부문이 정해지면 나머지 왕관은 사라진다. 지정 기능이 없으면 수상작에만 표시.
-      cr.hidden = win ? !isWin : !configured();
-      cr.setAttribute('aria-label', isWin ? `${p.title} 수상작` : `${p.title} 수상작으로 지정`);
+      if(cw) cw.classList.toggle('is-award', isWin);
+      // 수상작이 정해지면 왕관은 완전히 사라진다. 그 전까지만 지정용으로 보인다.
+      cr.hidden = win ? true : !configured();
+      cr.setAttribute('aria-label', `${p.title} 수상작으로 지정`);
     });
   });
 }
@@ -258,7 +263,7 @@ async function saveAward(){
 }
 
 function cell(p, cat){
-  return `<div class="cellwrap">
+  return `<div class="cellwrap" id="cw-${p.id}">
     <button class="cell" data-id="${p.id}">
       <span class="cell__img"><img src="${p.thumb}" alt="${esc(p.title)}" width="${p.w}" height="${p.h}" loading="lazy" decoding="async"></span>
       <span class="cell__cap">${esc(p.title)}<span class="award" id="aw-${p.id}" hidden>수상</span>

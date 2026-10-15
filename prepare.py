@@ -36,6 +36,7 @@ import re
 import io
 import sys
 import unicodedata
+import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -275,6 +276,60 @@ def write_roster(month_id, rows):
         w.writerows(rows)
 
 
+def bake_awards(months):
+    """하루 넘게 지난 수상작을 manifest.json 에 고정해 둔다.
+
+    archive.html 은 이 플래그가 이미 있으면 구글 시트를 다시 불러오지 않는다.
+    휴대폰에서 매번 시트를 불러오느라 느려지는 걸 막기 위한 것.
+    """
+    try:
+        text = Path("index.html").read_text(encoding="utf-8")
+    except OSError:
+        return 0
+    match = re.search(r'ENDPOINT:\s*"([^"]+)"', text)
+    endpoint = match.group(1) if match else ""
+    if not re.match(r"^https://script\.google\.com/macros/.+/exec$", endpoint):
+        return 0
+
+    ctx = None
+    try:
+        import certifi
+        import ssl
+        ctx = ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        pass
+    try:
+        with urllib.request.urlopen(endpoint + "?awards=1", timeout=8, context=ctx) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception as e:
+        print(f"  수상작 정보를 불러오지 못해 건너뜀 — {e}")
+        return 0
+    if not data.get("ok") or not isinstance(data.get("awards"), list):
+        return 0
+
+    by_id = {mo["id"]: mo for mo in months}
+    now = datetime.now(timezone.utc)
+    baked = 0
+    for a in data["awards"]:
+        try:
+            at = datetime.fromisoformat(str(a.get("at", "")).replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if now - at < timedelta(days=1):
+            continue
+        month = by_id.get(a.get("month"))
+        if not month:
+            continue
+        for cat in month["categories"]:
+            if cat["label"] != a.get("category"):
+                continue
+            for p in cat["photos"]:
+                if p["id"] == a.get("id") and not p.get("award"):
+                    p["award"] = True
+                    baked += 1
+    return baked
+
+
 def main():
     global DISPLAY_MAX, DISPLAY_Q, SHARPEN, FORCE
 
@@ -322,6 +377,18 @@ def main():
         d = datetime.now(KST) + timedelta(days=args.days)
     deadline = datetime(d.year, d.month, d.day, 23, 59, 0, tzinfo=KST)
 
+    # 원본을 지운 달은 지난번 manifest 에서 그대로 이어받는다.
+    # 그러지 않으면 아카이브에서 그 달이 통째로 사라진다.
+    kept = {}
+    if MANIFEST.exists():
+        try:
+            old = json.loads(MANIFEST.read_text(encoding="utf-8"))
+            for m in old.get("months", []):
+                if m["id"] not in month_ids and (OUT_DIR / m["id"]).exists():
+                    kept[m["id"]] = m
+        except Exception:
+            pass
+
     months = []
     print()
     for mid in reversed(month_ids):          # 최신 달이 앞으로
@@ -336,6 +403,15 @@ def main():
         if note:
             print(f"           {note}")
         write_roster(mid, roster)
+
+    for mid, m in kept.items():
+        months.append(m)
+        print(f"  {mid}  원본 없음 — 지난 기록 유지 (총 {m['count']}점)")
+    months.sort(key=lambda m: m["id"], reverse=True)
+
+    baked = bake_awards(months)
+    if baked:
+        print(f"\n  하루 넘게 지난 수상작 {baked}건을 manifest.json 에 고정함")
 
     manifest = {
         "generated": datetime.now(KST).isoformat(timespec="seconds"),
