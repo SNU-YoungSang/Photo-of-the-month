@@ -26,6 +26,8 @@
   python3 prepare.py --days 10            # 마감 10일 뒤
   python3 prepare.py --deadline 2026-09-14
   python3 prepare.py --month 2026-09      # 투표 대상 달을 직접 지정
+  python3 prepare.py --bake-only          # 수상작 선정 뒤(14~15일경), 사진은 안 건드리고
+                                           # 하루 넘게 지난 수상작만 manifest.json 에 고정
 """
 
 import argparse
@@ -341,7 +343,23 @@ def main():
     ap.add_argument("--quality", type=int, help=f"JPEG 품질 1-100 (기본 {DISPLAY_Q})")
     ap.add_argument("--no-sharpen", action="store_true", help="축소 뒤 선명하게 하지 않기")
     ap.add_argument("--rebuild", action="store_true", help="이미 만든 사진도 전부 다시 굽기")
+    ap.add_argument("--bake-only", action="store_true",
+                     help="사진은 다시 만들지 않고, 하루 넘게 지난 수상작만 manifest.json 에 고정하기")
     args = ap.parse_args()
+
+    if args.bake_only:
+        if not MANIFEST.exists():
+            sys.exit(f"'{MANIFEST}' 가 없습니다. 먼저 한 번 prepare.py 를 실행해 주세요.")
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        baked = bake_awards(manifest["months"])
+        if not baked:
+            print("새로 고정할 수상작이 없습니다 (아직 하루가 안 지났거나, 이미 고정됨).")
+            return
+        MANIFEST.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        print(f"수상작 {baked}건을 manifest.json 에 고정했습니다.")
+        return
 
     if args.size:
         DISPLAY_MAX = args.size
