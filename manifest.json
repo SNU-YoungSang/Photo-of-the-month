@@ -20,7 +20,8 @@
               "src": "photos/2026-09/film-708244.jpg",
               "thumb": "photos/2026-09/thumbs/film-708244.jpg",
               "w": 2200,
-              "h": 1459
+              "h": 1459,
+              "award": true
             },
             {
               "id": "film-74667f",
@@ -154,7 +155,8 @@
               "src": "photos/2026-09/digital-6041ed.jpg",
               "thumb": "photos/2026-09/thumbs/digital-6041ed.jpg",
               "w": 2200,
-              "h": 1490
+              "h": 1490,
+              "award": true
             },
             {
               "id": "digital-82b9d5",
@@ -320,7 +322,8 @@
               "src": "photos/2026-09/phone-43f5c9.jpg",
               "thumb": "photos/2026-09/thumbs/phone-43f5c9.jpg",
               "w": 1239,
-              "h": 2200
+              "h": 2200,
+              "award": true
             }
           ]
         }
@@ -406,7 +409,8 @@
               "thumb": "photos/2026-08/thumbs/film-74ed07.jpg",
               "w": 2178,
               "h": 1444,
-              "by": "김령교"
+              "by": "김령교",
+              "award": true
             },
             {
               "id": "film-f90070",
@@ -583,7 +587,8 @@
               "thumb": "photos/2026-08/thumbs/digital-c507cc.jpg",
               "w": 2043,
               "h": 2200,
-              "by": "윤재욱"
+              "by": "윤재욱",
+              "award": true
             },
             {
               "id": "digital-c780a5",
@@ -625,7 +630,8 @@
               "thumb": "photos/2026-08/thumbs/phone-db1ff7.jpg",
               "w": 2200,
               "h": 1650,
-              "by": "이경원"
+              "by": "이경원",
+              "award": true
             },
             {
               "id": "phone-0f7201",
